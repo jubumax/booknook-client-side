@@ -21,6 +21,8 @@ function Avatar({ user, className = "size-10" }) {
             <Image
                 src={user.image}
                 alt={user.name || "User photo"}
+                width={40}
+                height={40}
                 referrerPolicy="no-referrer"
                 onError={() => setFailed(true)}
                 className={`${className} rounded-full object-cover`}

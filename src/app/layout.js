@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
       className={`${inter.variable} ${playfair.variable}`}
     >
-      <body className="flex min-h-screen flex-col">
+      <body className="flex min-h-screen flex-col" suppressHydrationWarning>
         <Script id="theme-init" strategy="beforeInteractive">
           {themeInit}
         </Script>
