@@ -115,3 +115,65 @@
     letter-spacing: -0.01em;
   }
 }
+
+
+/* Hero slider (Swiper) */
+
+.hero-swiper {
+  --swiper-theme-color: var(--color-primary);
+  --swiper-pagination-bullet-size: 10px;
+  --swiper-pagination-bullet-horizontal-gap: 5px;
+  --swiper-pagination-bullet-inactive-color: var(--color-base-content);
+  --swiper-pagination-bullet-inactive-opacity: 0.25;
+  --swiper-navigation-size: 18px;
+}
+
+.hero-swiper .swiper-pagination-bullet {
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.hero-swiper .swiper-pagination-bullet-active {
+  width: 28px;
+  border-radius: 999px;
+}
+
+.hero-swiper .swiper-button-prev,
+.hero-swiper .swiper-button-next {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid var(--color-base-300);
+  background: var(--color-base-100);
+  color: var(--color-primary);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.12);
+  transition: transform 0.2s ease;
+}
+
+.hero-swiper .swiper-button-prev:hover,
+.hero-swiper .swiper-button-next:hover {
+  transform: scale(1.08);
+}
+
+/* arrow hiding in small screens. can use swipe or dot */
+@media (max-width: 767px) {
+
+  .hero-swiper .swiper-button-prev,
+  .hero-swiper .swiper-button-next {
+    display: none;
+  }
+}
+
+/* writings animation in active slide */
+.hero-swiper .hero-animate {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.hero-swiper .swiper-slide-active .hero-animate {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--i, 0) * 120ms + 200ms);
+}
