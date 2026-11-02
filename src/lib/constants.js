@@ -19,3 +19,5 @@ export const NAV_LINKS = [
     { label: "My Books", href: "/my-books", private: true },
     { label: "My Borrows", href: "/my-borrows", private: true },
 ];
+
+export const CATEGORIES = ["Fiction", "Science", "History", "Kids", "Others"];
