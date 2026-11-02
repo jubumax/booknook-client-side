@@ -1,11 +1,5 @@
-import React from 'react';
+import Spinner from "@/components/shared/Spinner";
 
-const LoadingPage = () => {
-    return (
-        <div>
-            <h2>Loading Page</h2>
-        </div>
-    );
-};
-
-export default LoadingPage;
+export default function Loading() {
+    return <Spinner fullPage label="Loading..." />;
+}
