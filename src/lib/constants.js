@@ -21,3 +21,6 @@ export const NAV_LINKS = [
 ];
 
 export const CATEGORIES = ["Fiction", "Science", "History", "Kids", "Others"];
+
+// return date after borrowing
+export const BORROW_DAYS = 7;
