@@ -7,38 +7,7 @@ import toast from "react-hot-toast";
 import { FiLogOut, FiUser } from "react-icons/fi";
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
-
-
-function Avatar({ user, className = "size-10" }) {
-    const [failed, setFailed] = useState(false);
-    const initial = (user?.name || user?.email || "U")
-        .trim()
-        .charAt(0)
-        .toUpperCase();
-
-    if (user?.image && !failed) {
-        return (
-            <Image
-                src={user.image}
-                alt={user.name || "User photo"}
-                width={40}
-                height={40}
-                referrerPolicy="no-referrer"
-                onError={() => setFailed(true)}
-                className={`${className} rounded-full object-cover`}
-            />
-        );
-    }
-
-
-    return (
-        <span
-            className={`${className} grid place-items-center rounded-full bg-primary font-semibold text-primary-content`}
-        >
-            {initial}
-        </span>
-    );
-}
+import Avatar from "@/components/shared/Avatar";
 
 
 export default function UserMenu({ user }) {
@@ -70,6 +39,7 @@ export default function UserMenu({ user }) {
         };
     }, [open]);
 
+    
     const handleLogout = async () => {
         setLoggingOut(true);
         const { error } = await authClient.signOut();
@@ -84,6 +54,7 @@ export default function UserMenu({ user }) {
         toast.success("You have been logged out.");
         router.push("/");
     };
+
 
     return (
         <div ref={menuRef} className="relative">
