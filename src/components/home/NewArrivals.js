@@ -7,6 +7,7 @@ import EmptyState from "@/components/shared/EmptyState";
 import SectionHeading from "@/components/shared/SectionHeading";
 import Spinner from "@/components/shared/Spinner";
 import { getBooks } from "@/services/books";
+import Reveal from "../shared/Reveal";
 
 
 async function LatestBooks() {
@@ -48,13 +49,15 @@ export default function NewArrivals() {
 
     return (
         <section className="py-16 sm:py-20">
-
             <Container>
-                <SectionHeading
-                    eyebrow="Fresh on the shelf"
-                    title="New Arrivals"
-                    subtitle="The latest books our readers have added to the library."
-                />
+
+                <Reveal>
+                    <SectionHeading
+                        eyebrow="Fresh on the shelf"
+                        title="New Arrivals"
+                        subtitle="The latest books our readers have added to the library."
+                    />
+                </Reveal>
 
                 <div className="mt-10">
                     <Suspense fallback={<Spinner label="Loading new arrivals..." />}>
@@ -63,13 +66,16 @@ export default function NewArrivals() {
                 </div>
 
                 <div className="mt-10 text-center">
-                    <Link
-                        href="/books"
-                        className="btn btn-primary btn-lg rounded-full px-8"
-                    >
-                        See All Books
-                    </Link>
+                    <Reveal className="mt-10 text-center">
+                        <Link
+                            href="/books"
+                            className="btn btn-primary btn-lg rounded-full px-8"
+                        >
+                            See All Books
+                        </Link>
+                    </Reveal>
                 </div>
+                
             </Container>
         </section>
     );

@@ -96,6 +96,15 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+
+    body {
+      overflow-x: clip;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
   }
 
   body {
@@ -176,4 +185,18 @@
   opacity: 1;
   transform: none;
   transition-delay: calc(var(--i, 0) * 120ms + 200ms);
+}
+
+
+/* for less animation lover (system setting) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-swiper .hero-animate {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
