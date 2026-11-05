@@ -44,7 +44,7 @@ export default async function BooksBrowser({ searchParams }) {
 
 
     return (
-        <>
+        <div className="mx-auto max-w-5xl">
             <nav aria-label="Filter books by category">
                 <ul className="flex flex-wrap gap-2">
 
@@ -92,6 +92,6 @@ export default async function BooksBrowser({ searchParams }) {
                     }
                 />
             </div>
-        </>
+        </div>
     );
 }

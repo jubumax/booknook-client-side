@@ -19,7 +19,7 @@ export default function BookGrid({
     }
 
     return (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 md:gap-6">
             {books.map((book, index) => (
                 <Reveal key={book._id} delay={(index % 3) * 0.08} className="h-full">
                     <BookCard book={book} />
