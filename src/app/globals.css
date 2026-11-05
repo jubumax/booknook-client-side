@@ -163,6 +163,25 @@
   transform: scale(1.08);
 }
 
+/* For category dropdown in add-book page option */
+.select option {
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.select option:checked {
+  background-color: color-mix(in oklab, var(--color-primary) 18%, transparent);
+  color: var(--color-primary);
+}
+
+.select option:hover,
+.select option:focus-visible {
+  background-color: var(--color-primary) !important;
+  color: var(--color-primary-content) !important;
+}
+
+
 /* arrow hiding in small screens. can use swipe or dot */
 @media (max-width: 767px) {
 

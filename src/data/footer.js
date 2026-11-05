@@ -44,5 +44,5 @@ export const SOCIAL_LINKS = [
     { label: "GitHub", href: "https://github.com/jubumax", icon: FaGithub },
     { label: "Linkedin", href: "https://linkedin.com/in/jubumax", icon: FaLinkedin },
     { label: "Instagram", href: "https://instagram.com/", icon: FaInstagram },
-    // { label: "X", href: "https://x.com", icon: FaXTwitter },
+    { label: "X", href: "https://x.com", icon: FaXTwitter },
 ];

@@ -16,6 +16,8 @@ import { formatDate } from "@/lib/format";
 import { getBook } from "@/services/books";
 import BookCover from "./BookCover";
 import BorrowModal from "./BorrowModal";
+import toast from "react-hot-toast";
+import { getMyBorrows } from "@/services/borrows";
 
 
 const LOADING_STATE = { status: "loading", book: null, error: "", code: 0 };
@@ -25,6 +27,7 @@ export default function BookDetails({ id }) {
     const [attempt, setAttempt] = useState(0);
     const [state, setState] = useState(LOADING_STATE);
     const [modalOpen, setModalOpen] = useState(false);
+    const [checking, setChecking] = useState(false);
 
     useEffect(() => {
         let ignore = false;
@@ -54,6 +57,28 @@ export default function BookDetails({ id }) {
         setAttempt((count) => count + 1);
     };
 
+
+    const handleUnavailableClick = async () => {
+        if (checking) return;
+        setChecking(true);
+
+        try {
+            const borrows = await getMyBorrows();
+            const alreadyBorrowed = borrows.some(
+                (borrow) => String(borrow.bookId) === String(state.book._id),
+            );
+
+            toast.error(
+                alreadyBorrowed
+                    ? "You have already borrowed this book."
+                    : "Sorry, all copies of this book are borrowed right now.",
+            );
+        } catch (error) {
+            toast.error(error.message || "Something went wrong. Please try again.");
+        } finally {
+            setChecking(false);
+        }
+    };
 
     const handleBorrowed = () => {
         setState((prev) =>
@@ -151,7 +176,7 @@ export default function BookDetails({ id }) {
                             </p>
                             <p className="mt-1 text-2xl font-bold">{book.totalCopies}</p>
                         </div>
-                        
+
                         <div
                             className={`rounded-2xl border p-4 ${available
                                 ? "border-success/30 bg-success/10"
@@ -178,7 +203,7 @@ export default function BookDetails({ id }) {
 
                     {/* Added by */}
                     <div className="mt-8 flex items-center gap-4 rounded-2xl border border-base-300 bg-base-200/50 p-4">
-                        
+
                         <span className="grid size-12 shrink-0 place-items-center rounded-full bg-primary text-lg font-semibold text-primary-content">
                             {ownerInitial}
                         </span>
@@ -187,14 +212,16 @@ export default function BookDetails({ id }) {
                             <p className="text-xs uppercase tracking-wider text-base-content/60">
                                 Added by
                             </p>
+
                             <p className="truncate font-semibold">{ownerName}</p>
+
                             {book.addedBy?.email && (
                                 <p className="truncate text-sm text-base-content/70">
                                     {book.addedBy.email}
                                 </p>
                             )}
                         </div>
-                        
+
                         <p className="ml-auto hidden items-center gap-1.5 text-sm text-base-content/60 sm:flex">
                             <FiCalendar aria-hidden="true" />
                             {formatDate(book.createdAt)}
@@ -204,15 +231,39 @@ export default function BookDetails({ id }) {
 
                     {/* Borrow */}
                     <div className="mt-8">
-                        <button
-                            type="button"
-                            onClick={() => setModalOpen(true)}
-                            disabled={!available}
-                            className="btn btn-primary btn-lg w-full rounded-full px-8 sm:w-auto"
-                        >
-                            <FiBookmark aria-hidden="true" />
-                            {available ? "Borrow This Book" : "Not Available"}
-                        </button>
+                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+                            
+                            {available ? (
+                                <button
+                                    type="button"
+                                    onClick={() => setModalOpen(true)}
+                                    className="btn btn-primary btn-lg w-full rounded-full px-8 sm:w-auto"
+                                >
+                                    <FiBookmark aria-hidden="true" />
+                                    Borrow This Book
+                                </button>
+                            ) : (
+                                <button
+                                    type="button"
+                                    onClick={handleUnavailableClick}
+                                    className="btn btn-lg pointer-events-auto w-full cursor-pointer rounded-full border-base-300 bg-base-300 px-8 text-base-content/60 shadow-none hover:border-base-300 hover:bg-base-300 sm:w-auto"
+                                >
+                                    {checking ? (
+                                        <span className="loading loading-spinner loading-sm" />
+                                    ) : (
+                                        <FiBookmark aria-hidden="true" />
+                                    )}
+                                    Not Available
+                                </button>
+                            )}
+
+                            <Link
+                                href="/books"
+                                className="text-center font-medium text-primary underline-offset-4 transition-colors hover:underline"
+                            >
+                                Back to all books
+                            </Link>
+                        </div>
 
                         {!available && (
                             <p className="mt-3 text-sm text-base-content/60">

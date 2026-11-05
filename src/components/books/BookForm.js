@@ -177,7 +177,7 @@ export default function BookForm({
                     aria-invalid={Boolean(errors.category)}
                     className={`select w-full ${errors.category ? "select-error" : ""}`}
                 >
-                    <option value="" disabled>
+                    <option value="" disabled hidden>
                         Select a category
                     </option>
                     {CATEGORIES.map((category) => (
